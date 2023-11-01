@@ -1,6 +1,13 @@
 from django.db import models
 
 # Create your models here.
+UFS = [
+        ("SP", "São Paulo"),
+        ("MG", "Minas Gerais"),
+        ("RJ", "Rio de Janeiro"),
+        ("ES", "Espirito Santo")
+    ]
+
 class Contato(models.Model):
     
     ESTADOS_CIVIS = [
@@ -10,24 +17,8 @@ class Contato(models.Model):
         ('V', 'Viúvo')
         ]
     
-    UFS = [
-        ("SP", "São Paulo"),
-        ("MG", "Minas Gerais"),
-        ("RJ", "Rio de Janeiro"),
-        ("ES", "Espirito Santo")
-    ]
-
-     
-    Cidades = [
-        ("SP", "São Paulo"),
-        ("CL", "Campo Limpo"),
-        ("BA", "Bauru"),
-        ("CP", "Campinas")
-    ]
-
-
-
-
+   
+   
 
 
     nome = models.CharField(max_length=100)
@@ -39,7 +30,7 @@ class Contato(models.Model):
     complemento = models.CharField(max_length=50, blank=True, null=True)
     cep = models.CharField(max_length=9)
     bairro = models.CharField(max_length=100)
-    cidade = models.CharField(max_length=2, choices=Cidades, null=True)
+    cidade = models.CharField(max_length=50)
     estado = models.CharField(max_length=2, choices=UFS, null=True)
     estado_civil = models.CharField(max_length=1, choices=ESTADOS_CIVIS, null=True)
 
@@ -50,3 +41,10 @@ class Contato(models.Model):
     class Meta:
         verbose_name = 'Pessoa'
         verbose_name_plural = 'Pessoa'
+
+class Cidade(models.Model):
+    nome = models.CharField(max_length=50)
+    UF = models.CharField(max_length=2, choices=UFS)
+
+    def __str__(self):
+        return self.nome
